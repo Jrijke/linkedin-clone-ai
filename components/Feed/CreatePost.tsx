@@ -1,21 +1,22 @@
-"use client";
-
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
-import { ImageIcon, VideoIcon, CalendarIcon, NewspaperIcon } from "lucide-react";
-import Link from "next/link";
+import { ImageIcon, CalendarIcon, NewspaperIcon } from "lucide-react";
+import { Session } from "next-auth";
+import Image from "next/image";
 
-export default function CreatePost({ onClick }: { onClick: () => void }) {
+export default function CreatePost({ onClick, session }: { onClick: () => void, session: Session }) {
   return (
     <Card className="p-4 space-y-4">
       <div className="flex gap-2">
         <Avatar className="w-12 h-12">
-          <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
+          <Image
+              src={session?.user?.image ?? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"}
+              alt={session?.user?.name ?? "Profile"}
+              layout="fill"
+              objectFit="cover"
+              className="w-full h-full object-cover"
+            />
         </Avatar>
         <Button 
           variant="outline" 

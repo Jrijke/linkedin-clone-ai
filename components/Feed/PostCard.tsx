@@ -6,15 +6,18 @@ import { Button } from "@/components/ui/button";
 import { ThumbsUp, MessageSquare, Share2, Send } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { Post } from "@/lib/types";
+import Image from "next/image";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
     <Card className="p-4">
       <div className="flex gap-2">
         <Avatar className="w-12 h-12">
-          <img
+          <Image
             src={post.author.avatar}
             alt={post.author.name}
+            layout="fill"
+            objectFit="cover"
             className="w-full h-full object-cover"
           />
         </Avatar>

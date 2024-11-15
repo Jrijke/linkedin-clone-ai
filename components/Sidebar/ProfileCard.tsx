@@ -1,37 +1,26 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { BookmarkIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import Image from "next/image";
 
-export default function ProfileCard() {
-  const { data: session } = useSession();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
+export default function ProfileCard({ session }: Readonly<{ session: Session }>) {
   return (
     <Card className="overflow-hidden">
       <div className="h-14 bg-gradient-to-r from-blue-600 to-blue-800" />
       <div className="p-4 -mt-8">
         <Avatar className="w-16 h-16 border-4 border-background">
-          <img
-            src={session?.user?.image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"}
-            alt={session?.user?.name || "Profile"}
+          <Image
+            src={session?.user?.image ?? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"}
+            alt={session?.user?.name ?? "Profile"}
+            layout="fill"
+            objectFit="cover"
             className="w-full h-full object-cover"
           />
         </Avatar>
         <h2 className="mt-2 font-semibold text-lg hover:underline cursor-pointer">
-          {session?.user?.name || "Welcome"}
+          {session?.user?.name ?? "Welcome"}
         </h2>
         <p className="text-sm text-muted-foreground">
           Software Engineer at Tech Company

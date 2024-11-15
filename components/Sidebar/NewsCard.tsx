@@ -21,7 +21,7 @@ const news = [
     readers: "38,756 readers",
     time: "3d ago"
   }
-];
+] as const;
 
 export default function NewsCard() {
   return (

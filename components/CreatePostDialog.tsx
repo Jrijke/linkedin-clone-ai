@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar } from "@/components/ui/avatar";
 import { ImageIcon, VideoIcon, Calendar, MoreHorizontal } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 interface CreatePostDialogProps {
   open: boolean;
@@ -23,7 +24,7 @@ export default function CreatePostDialog({
   open,
   onOpenChange,
   onPost,
-}: CreatePostDialogProps) {
+}: Readonly<CreatePostDialogProps>) {
   const { data: session } = useSession();
   const [content, setContent] = useState("");
 
@@ -44,10 +45,12 @@ export default function CreatePostDialog({
         </DialogHeader>
         <div className="flex items-center gap-2 mt-4">
           <Avatar className="w-12 h-12">
-            <img
-              src={session?.user?.image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"}
-              alt={session?.user?.name || "Profile"}
-              className="w-full h-full object-cover"
+            <Image
+              src={session?.user?.image ?? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"}
+              alt={session?.user?.name ?? "Profile"}
+              layout="fill"
+              objectFit="cover"
+              className="w-full h-full"
             />
           </Avatar>
           <div>
